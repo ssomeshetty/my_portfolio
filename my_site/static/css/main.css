@@ -1,0 +1,125 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9; /* Lighter background */
+    color: #333333; /* Dark text color for better readability */
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background-color: #ffffff; /* White background for content area */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+    background-color: #ffffff; /* White background for cards */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+#profile-wrapper {
+    text-align: center;
+    background-color: #f8f9fa; /* Light gray background for profile */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#profile-pic {
+    border-radius: 50%;
+    width: 180px; /* Increased size for better emphasis */
+    height: 180px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: transform 0.3s;
+    border: 5px solid #007bff; /* Border around the profile image */
+}
+
+#profile-pic:hover {
+    transform: scale(1.1);
+}
+
+h4 {
+    color: #007bff; /* Bootstrap primary color */
+    margin-top: 10px;
+    font-size: 1.5rem; /* Adjusted font size */
+}
+
+p {
+    line-height: 1.6;
+}
+
+.social-icons {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center the icons */
+    gap: 20px; /* Add some spacing between icons */
+    margin-top: 15px;
+}
+
+.social-icons a {
+    text-decoration: none; /* Remove link underline */
+}
+
+#social {
+    width: 35px;
+    height: 35px;
+    transition: transform 0.3s;
+}
+
+#social:hover {
+    transform: scale(1.1);
+}
+
+ul {
+    padding-left: 20px;
+}
+
+h5 {
+    color: #495057; /* Darker text color */
+}
+
+.card-body {
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    #profile-wrapper {
+        margin-bottom: 20px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    #profile-pic {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

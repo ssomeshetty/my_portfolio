@@ -1,0 +1,118 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sangamesh Someshetty</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <!-- Profile Section -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-info rounded">
+                    <img id="profile-pic" class="card-img-top rounded-circle mx-auto d-block mt-3" src="{% static 'images/sangamesh.jpg' %}" alt="Sangamesh Someshetty">
+                    <div class="card-body text-center">
+                        <h4>Hi, I'm Sangamesh Someshetty</h4>
+                        <p class="text-muted">Aspiring Backend Engineer | Problem Solver | Innovator | Thinker</p>
+                        
+                        <!-- Social Icons Below Profile Image -->
+                        <div class="social-icons mt-3">
+                            <a href="https://github.com/ssomeshetty" target="_blank" class="mx-2">
+                                <img id="social" src="{% static 'images/github.png' %}" alt="GitHub" width="30">
+                            </a>
+                            <a href="https://www.linkedin.com/in/sangameshsomeshetty" target="_blank" class="mx-2">
+                                <img id="social" src="{% static 'images/linkdin.png' %}" alt="LinkedIn" width="30">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Introduction Section -->
+            <div class="col-md-7">
+                <div class="card shadow-sm border-info rounded">
+                    <div class="card-body">
+                        <h4>About Me</h4>
+                        <hr>
+                        <p>I am an Information Science and Engineering student at MSRIT, Bengaluru, passionate about backend development, and solving problems. My journey in programming led me to focus on Django, a powerful web framework that allows me to create dynamic and scalable applications.</p>
+                        <p>I aim to develop my skills further in web development and explore new technologies in the tech industry, while contributing to open-source projects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects and Skills -->
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card shadow-sm border-info rounded">
+                    <div class="card-body">
+                        <h4>Projects</h4>
+                        <hr>
+                        <ul>
+                            <li>
+                                <h5>Vachana Darshana</h5>
+                                <p>Utilizing Django and Bootstrap, I developed a user-friendly e-commerce platform with product listings, user authentication, and a secure shopping cart.</p>
+                            </li>
+                            <li>
+                                <h5>FixMyCity</h5>
+                                <p>A real-time chat room application using HTML, CSS, JavaScript, and Django. MySQL was used to store messages and session data for seamless communication.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card shadow-sm border-info rounded">
+                    <div class="card-body">
+                        <h4>Technical Skills</h4>
+                        <hr>
+                        <ul>
+                            <li><strong>Programming Languages:</strong> Python, Java, C/C++</li>
+                            <li><strong>Web Development:</strong>
+                                <ul>
+                                    <li>Frontend: HTML, CSS, JS</li>
+                                    <li>Frameworks: Bootstrap, Django</li>
+                                    <li>Databases: MySQL, Sqlite</li>
+                                </ul>
+                            </li>
+                            <li><strong>Data Manipulation Libraries:</strong> NumPy, Pandas, Matplotlib</li>
+                            <li><strong>Technologies</strong>Git/GitHub, VS code </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hobbies and Short-Term Goals -->
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card shadow-sm border-info rounded">
+                    <div class="card-body">
+                        <h4>Hobbies</h4>
+                        <hr>
+                        <p>In my free time, I enjoy reading books, solving coding challenges, and logical puzzles to enhance my problem-solving abilities and analytical thinking.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card shadow-sm border-info rounded">
+                    <div class="card-body">
+                        <h4>Short-Term Goals</h4>
+                        <hr>
+                        <p>In the short-term, I aim to sharpen my skills in Django and explore machine learning. I also want to contribute to open-source projects and collaborate with other developers to create impactful solutions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
