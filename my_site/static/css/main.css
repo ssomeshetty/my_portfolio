@@ -45,7 +45,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     transition: transform 0.3s;
-    border: 5px solid #007bff; /* Border around the profile image */
+    border: groove #007bff; /* Border around the profile image */
 }
 
 #profile-pic:hover {
