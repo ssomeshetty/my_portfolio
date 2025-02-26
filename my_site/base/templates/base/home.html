@@ -1,141 +1,993 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sangamesh Someshetty</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sangamesh Someshetty - Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- AOS Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #7209b7;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .bg-gradient-secondary {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .navbar {
+            transition: all 0.5s ease;
+            padding: 1rem 0;
+        }
+        
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.95) !important;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.8), rgba(114, 9, 183, 0.8));
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            z-index: -1;
+        }
+        
+        .hero-img {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            animation: morph 8s ease-in-out infinite;
+            border: 5px solid white;
+            max-width: 280px;
+            max-height: 280px;
+            margin: 0 auto;
+        }
+        
+        @keyframes morph {
+            0% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+            25% {
+                border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+            }
+            50% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+            }
+            75% {
+                border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+            }
+            100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        .section-title.text-center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        .project-card {
+            height: 100%;
+        }
+        
+        .project-card .card-body {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-card .card-text {
+            flex-grow: 1;
+        }
+        
+        .skill-item {
+            background: white;
+            border-radius: 50px;
+            padding: 8px 16px;
+            margin: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            background: var(--primary);
+            color: white;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary);
+        }
+        
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem auto;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover .contact-icon {
+            transform: rotateY(360deg);
+            background: var(--accent);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            border-color: var(--primary);
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin: 0 5px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Floating elements animation */
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        /* Cursor animation */
+        .typed-cursor {
+            opacity: 1;
+            animation: blink 0.7s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+        
+        /* Custom scroll bar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+    </style>
 </head>
-<body class="bg-light">
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <!-- Profile Section -->
-            <div class="col-md-4">
-                <div class="card shadow-sm border-info rounded">
-                    <img id="profile-pic" class="card-img-top rounded-circle mx-auto d-block mt-3" src="{% static 'images/sangamesh.jpg' %}" alt="Sangamesh Someshetty">
-                    <div class="card-body text-center">
-                        <h4>Hi, I'm Sangamesh Someshetty</h4>
-                        <p class="text-muted">Aspiring Backend Engineer | Problem Solver | Innovator | Thinker</p>
-                        
-                        <!-- Social Icons Below Profile Image -->
-                        <div class="social-icons mt-3">
-                            <a href="https://github.com/ssomeshetty" target="_blank" class="mx-2">
-                                <img id="social" src="{% static 'images/github.png' %}" alt="GitHub" width="30">
-                            </a>
-                            <a href="https://www.linkedin.com/in/sangameshsomeshetty" target="_blank" class="mx-2">
-                                <img id="social" src="{% static 'images/linkdin.png' %}" alt="LinkedIn" width="30">
-                            </a>
-                            <a href="https://leetcode.com/u/ssomeshetty/" target="_blank" class="mx-2">
-                                <img id="social" src="{% static 'images/LeetCode1.png' %}" alt="LeetCode" width="30">
-                            </a>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" id="navbar">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <span class="text-gradient">Sangamesh</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-1 order-2" data-aos="fade-right">
+                    <h1 class="display-4 fw-bold text-white">Hi, I'm <span class="text-white">Sangamesh Someshetty</span></h1>
+                    <h2 class="text-white h3 mb-4">Information Science and Engineering Student</h2>
+                    <p class="lead text-white mb-4">Passionate about technology, development, and innovation.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#projects" class="btn btn-light btn-lg px-4">View My Work</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg px-4">Contact Me</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-2 order-1 text-center mb-5 mb-lg-0" data-aos="fade-left">
+                    <img src= '{% static "images/sangamesh.jpg" %}' alt="Sangamesh Someshetty" class="img-fluid hero-img floating">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5" id="about">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h2 class="section-title fw-bold">About Me</h2>
+                    <p class="lead mb-4">I am an Information Science Engineering student at MS Ramaiah Institute of Technology with a passion for building impactful solutions.</p>
+                    <p class="mb-4">With a strong foundation in Python, Django, and web technologies, I develop applications that solve real-world problems. I am particularly interested in software development, web applications, and exploring new technologies.</p>
+                    <p class="mb-4">Beyond technical skills, I have a deep interest in philosophy and psychology, which helps me approach problem-solving from diverse perspectives.</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="https://github.com/sangameshsomeshetty" target="_blank" class="btn btn-primary">GitHub <i class="bi bi-github ms-2"></i></a>
+                        <a href="https://www.linkedin.com/in/sangameshsomeshetty" target="_blank" class="btn btn-outline-primary">LinkedIn <i class="bi bi-linkedin ms-2"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left">
+                    <div class="card bg-gradient-primary text-white p-4 h-100">
+                        <div class="card-body">
+                            <h3 class="fw-bold mb-4">Personal Info</h3>
+                            <div class="d-flex mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-geo-alt fs-4 me-3"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold">Location</h6>
+                                    <p class="mb-0">Bengaluru, Karnataka, India</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-envelope fs-4 me-3"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold">Email</h6>
+                                    <p class="mb-0">bremblue189@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-phone fs-4 me-3"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold">Phone</h6>
+                                    <p class="mb-0">+91 7483350353</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-code-slash fs-4 me-3"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold">Profiles</h6>
+                                    <p class="mb-0">
+                                        <a href="https://leetcode.com/u/ssomeshetty/" class="text-white text-decoration-underline me-2">LeetCode</a>
+                                        <a href="https://www.hackerrank.com/profile/sangusomeshetty" class="text-white text-decoration-underline me-2">HackerRank</a>
+                                        <a href="https://github.com/ssomeshetty" class="text-white text-decoration-underline">GitHub</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-book fs-4 me-3"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold">Interests</h6>
+                                    <p class="mb-0">Philosophy, Psychology, Coding, Problem-solving</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Introduction Section -->
-            <div class="col-md-7">
-                <div class="card shadow-sm border-info rounded">
-                    <div class="card-body">
-                        <h4>About Me</h4>
-                        <hr>
-                        <p>I am an Information Science and Engineering student at MSRIT, Bengaluru, passionate about backend development, and solving problems. My journey in programming led me to focus on Django, a powerful web framework that allows me to create dynamic and scalable applications.</p>
-                        <p>I aim to develop my skills further in web development and explore AI & ML , with creating real world projects .</p>
+    <!-- Education Section -->
+    <section class="py-5 bg-light" id="education">
+        <div class="container py-5">
+            <h2 class="section-title text-center fw-bold mb-5">Education</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="timeline">
+                        <div class="timeline-item" data-aos="fade-up">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h4 class="fw-bold text-gradient">MS Ramaiah Institute of Technology</h4>
+                                        <span class="badge bg-gradient-primary">2022 - 2026</span>
+                                    </div>
+                                    <h5>Bachelor of Engineering in Information Science</h5>
+                                    <p class="text-muted">Bengaluru, India</p>
+                                    <p>CGPA: 8.49</p>
+                                    <p>Coursework: Data Structures and Algorithms, Operating System, DBMS, AI, Software Engineering</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h4 class="fw-bold text-gradient">Shaheen Group of Institutions</h4>
+                                        <span class="badge bg-gradient-primary">2020 - 2022</span>
+                                    </div>
+                                    <h5>Pre-University</h5>
+                                    <p class="text-muted">Bidar, India</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Projects and Skills Section -->
-        <div class="row mt-5">
-            <div class="col-md-6">
-                <div class="card shadow-sm border-info rounded">
-                    <div class="card-body">
-                        <h4>Projects</h4>
-                        <hr>
-                        <ul>
-                            <li>
-                                <h5><a href="https://github.com/ssomeshetty/vachana_project.git" target="_blank" class="mx-2">Vachana Darshana</a></h5>
-                                <p> • Developed a web application using Django, Bootstrap, and HTML/CSS/JS to display 12th-century vachanas, featuring search functionality by title or author.</p>
-                                <p> • Displays a list of Vachanas with search functionality and allows users to filter by Author, Category, or content, as well as like Vachanas and tracks these activities such as liking a Vachana or creating a new vachana, shown in their profile.</p>
-                                <p> • Provides user registration and login functionality, allowing users to sign up, log in, and be redirected based on their roles (regular user or admin).</p>
-                                <p> • Enables users to view and update their profile information, including personal details and profile picture, with error handling for form validation.</p>
-                                <p> • Allows users to create and submit their own Vachanas, while recording this action in the system as a ”created” activity for activity tracking.</p>
-                                <p> • Created detailed author biography pages and included language translation features.</p>
-                            </li>
-                            <li>
-                                <h5>FixMyCity</h5>
-                                <p></p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card shadow-sm border-info rounded">
-                    <div class="card-body">
-                        <h4>Technical Skills</h4>
-                        <hr>
-                        <ul>
-                            <li><strong>Programming Languages:</strong> Python, Java, C/C++</li>
-                            <li><strong>Web Development:</strong>
-                                <ul>
-                                    <li>Frontend: HTML, CSS, JS</li>
-                                    <li>Frameworks: Bootstrap, Django</li>
-                                    <li>Databases: MySQL, Sqlite</li>
+    <!-- Projects Section -->
+    <section class="py-5" id="projects">
+        <div class="container py-5">
+            <h2 class="section-title text-center fw-bold mb-5">Projects</h2>
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-up">
+                    <div class="card project-card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h4 class="card-title fw-bold">Vachana Darshana</h4>
+                            <p class="card-subtitle mb-3 text-muted">Django, Bootstrap, SQLite3</p>
+                            <p class="card-text">
+                                A web application to display 12th-century vachanas with search and filter functionality. Features user registration, profile management, and the ability to create and like vachanas.
+                            </p>
+                            <div class="mt-auto">
+                                <h5 class="fw-bold mb-3">Key Features</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Search functionality by title or author</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> User registration and role-based redirects</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Profile management with activity tracking</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Create and like Vachanas</li>
+                                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Author biographies  </li>
                                 </ul>
-                            </li>
-                            <li><strong>Data Manipulation Libraries:</strong> NumPy, Pandas, Matplotlib</li>
-                            <li><strong>Technologies:</strong> Git/GitHub, VS Code, Eclipse</li>
-                        </ul>
+                                <div class="d-flex justify-content-between mt-4">
+                                    <a href="https://github.com/ssomeshetty/vachana_project.git" target="_blank" class="btn btn-outline-primary">
+                                        <i class="bi bi-github me-2"></i> Code
+                                    </a>
+                                    <span class="badge bg-primary align-self-center px-3 py-2">March 2024</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card project-card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h4 class="card-title fw-bold">FixOurCity</h4>
+                            <p class="card-subtitle mb-3 text-muted">Django, SQLite3, Bootstrap</p>
+                            <p class="card-text">
+                                A platform for citizens and authorities to collaborate on urban maintenance, enhancing city cleanliness and infrastructure.
+                            </p>
+                            <div class="mt-auto">
+                                <h5 class="fw-bold mb-3">Key Features</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Issue reporting with status tracking</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Contractor assignment based on expertise</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Image upload and upvote system</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Automatic notifications to authorities</li>
+                                    <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Issue Liking </li>
+                                </ul>
+                                <div class="d-flex justify-content-between mt-4">
+                                    <a href="https://github.com/ssomeshetty/fix_our_city.git" target="_blank" class="btn btn-outline-primary">
+                                        <i class="bi bi-github me-2"></i> Code
+                                    </a>
+                                    <span class="badge bg-primary align-self-center px-3 py-2">December 2024</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Hobbies and Short-Term Goals Section -->
-        <div class="row mt-5">
-            <div class="col-md-6">
-                <div class="card shadow-sm border-info rounded">
-                    <div class="card-body">
-                        <h4>Hobbies</h4>
-                        <hr>
-                        <p>In my free time, I enjoy reading books, watch podcasts, reading technical Blogs </p>
+    <!-- Skills Section -->
+    <section class="py-5 bg-light" id="skills">
+        <div class="container py-5">
+            <h2 class="section-title text-center fw-bold mb-5">Skills & Expertise</h2>
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="text-center mb-4">
+                                <div class="bg-gradient-primary d-inline-flex align-items-center justify-content-center rounded-circle p-3 mb-3">
+                                    <i class="bi bi-code-slash text-white fs-1"></i>
+                                </div>
+                                <h4 class="fw-bold">Languages</h4>
+                            </div>
+                            <div class="d-flex flex-wrap justify-content-center">
+                                <span class="skill-item">Python</span>
+                                <span class="skill-item">Java</span>
+                                <span class="skill-item">C/C++</span>
+                                <span class="skill-item">HTML/CSS</span>
+                                <span class="skill-item">SQL</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card shadow-sm border-info rounded">
-                    <div class="card-body">
-                        <h4>Interests</h4>
-                        <hr>
-                        <p>Explore AI & ML, Philosophy</p>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="text-center mb-4">
+                                <div class="bg-gradient-primary d-inline-flex align-items-center justify-content-center rounded-circle p-3 mb-3">
+                                    <i class="bi bi-stack text-white fs-1"></i>
+                                </div>
+                                <h4 class="fw-bold">Technologies & Frameworks</h4>
+                            </div>
+                            <div class="d-flex flex-wrap justify-content-center">
+                                <span class="skill-item">Django</span>
+                                <span class="skill-item">Bootstrap</span>
+                                <span class="skill-item">Numpy</span>
+                                <span class="skill-item">Pandas</span>
+                                <span class="skill-item">Matplotlib</span>
+                                <span class="skill-item">Git</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="text-center mb-4">
+                                <div class="bg-gradient-primary d-inline-flex align-items-center justify-content-center rounded-circle p-3 mb-3">
+                                    <i class="bi bi-lightbulb text-white fs-1"></i>
+                                </div>
+                                <h4 class="fw-bold">Soft Skills</h4>
+                            </div>
+                            <div class="d-flex flex-wrap justify-content-center">
+                                <span class="skill-item">Critical Thinking</span>
+                                <span class="skill-item">Networking</span>
+                                <span class="skill-item">Innovation</span>
+                                <span class="skill-item">Team Collaboration</span>
+                                <span class="skill-item">Problem Solving</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Courses Section -->
-        <div class="row mt-5">
-            <div class="col-md-6">
-                <div class="card shadow-sm border-info rounded">
-                    <div class="card-body">
-                        <h4>Courses</h4>
-                        <hr>
-                        <p> • 100 Days of Code: The Complete Python Pro Bootcamp by Dr. Angela Yu</p>
-                        <p> • Python and Django Framework by Horizon Tech</p>
+    <!-- Courses Section -->
+    <section class="py-5">
+        <div class="container py-5">
+            <h2 class="section-title text-center fw-bold mb-5">Courses & Certifications</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="row g-4">
+                        <div class="col-md-6" data-aos="flip-left">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-gradient-primary text-white p-3 rounded-circle me-3">
+                                            <i class="bi bi-code-square"></i>
+                                        </div>
+                                        <h4 class="fw-bold mb-0">100 days of Code: The Complete Python Pro Bootcamp</h4>
+                                    </div>
+                                    <p class="card-text">Instructor: Dr. Angela Yu</p>
+                                    <hr>
+                                    <p class="mb-0">Comprehensive Python programming course covering fundamentals to all concepts related to Python, including web development, data science .</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" data-aos="flip-right">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-gradient-primary text-white p-3 rounded-circle me-3">
+                                            <i class="bi bi-window"></i>
+                                        </div>
+                                        <h4 class="fw-bold mb-0">Python and Django Framework</h4>
+                                    </div>
+                                    <p class="card-text">Institution: Horizon Tech</p>
+                                    <hr>
+                                    <p class="mb-0">In-depth course on Django web framework, covering models, views, templates, forms, authentication, and deployment of web applications.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+    <!-- Contact Section -->
+    <section class="py-5 bg-light" id="contact">
+        <div class="container py-5">
+            <h2 class="section-title text-center fw-bold mb-5">Get In Touch</h2>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="zoom-in">
+                    <div class="card contact-card h-100">
+                        <div class="card-body text-center">
+                            <div class="contact-icon">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Email</h4>
+                            <p class="mb-2">bremblue189@gmail.com</p>
+                            <a href="mailto:bremblue189@gmail.com" class="btn btn-outline-primary mt-3">Send Email</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="card contact-card h-100">
+                        <div class="card-body text-center">
+                            <div class="contact-icon">
+                                <i class="bi bi-phone"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Phone</h4>
+                            <p class="mb-2">+91 7483350353</p>
+                            <a href="tel:+917483350353" class="btn btn-outline-primary mt-3">Call Me</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="card contact-card h-100">
+                        <div class="card-body text-center">
+                            <div class="contact-icon">
+                                <i class="bi bi-linkedin"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">LinkedIn</h4>
+                            <p class="mb-2">Connect professionally</p>
+                            <a href="https://www.linkedin.com/in/sangameshsomeshetty" target="_blank" class="btn btn-outline-primary mt-3">Connect</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bold mb-4 text-center">Send Me a Message</h3>
+                            <form id="contactForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                            <label for="name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                            <label for="email">Your Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                            <label for="subject">Subject</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control" placeholder="Your Message" id="message" style="height: 150px"></textarea>
+                                            <label for="message">Your Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                                            <i class="bi bi-send me-2"></i> Send Message
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </div>
+    <!-- Achievements Section -->
+    <section class="py-5">
+        <div class="container py-5">
+            <h2 class="section-title text-center fw-bold mb-5">Achievements</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card bg-gradient-primary text-white" data-aos="fade-up">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-white rounded-circle p-3 me-3">
+                                    <i class="bi bi-trophy text-primary fs-3"></i>
+                                </div>
+                                <div>
+                                    <h3 class="fw-bold mb-0">Academic Excellence</h3>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-3 d-flex align-items-start">
+                                    <i class="bi bi-check-circle-fill me-2 mt-1"></i>
+                                    <div>
+                                        <h5 class="fw-bold">National Means-cum-Merit Scholarship (NMMS)</h5>
+                                        <p>Awarded for academic excellence at the national level</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start">
+                                    <i class="bi bi-check-circle-fill me-2 mt-1"></i>
+                                    <div>
+                                        <h5 class="fw-bold">National Talent Search Examination (NTSE)</h5>
+                                        <p>Recognized for exceptional talent and academic potential</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Interests Section -->
+    <section class="py-5 bg-light">
+        <div class="container py-5">
+            <h2 class="section-title text-center fw-bold mb-5">Other Interests</h2>
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-right">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-gradient-primary p-3 rounded-circle text-white me-3">
+                                    <i class="bi bi-book fs-3"></i>
+                                </div>
+                                <h3 class="fw-bold mb-0">Philosophy</h3>
+                            </div>
+                            <p>Fascinated by philosophical questions about knowledge, existence, and ethics. I enjoy exploring both Eastern and Western philosophical traditions and applying these principles to modern challenges and technological developments.</p>
+                            <div class="text-end mt-3">
+                                <span class="badge bg-gradient-primary px-3 py-2">Critical Thinking</span>
+                                <span class="badge bg-gradient-primary px-3 py-2">Ethics</span>
+                                <span class="badge bg-gradient-primary px-3 py-2">Metaphysics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-left">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-gradient-primary p-3 rounded-circle text-white me-3">
+                                    <i class="bi bi-brain fs-3"></i>
+                                </div>
+                                <h3 class="fw-bold mb-0">Psychology</h3>
+                            </div>
+                            <p>Interested in understanding human behavior, cognitive processes, and emotional intelligence. I find the intersection of psychology and technology particularly intriguing, especially in areas like user experience design and human-computer interaction.</p>
+                            <div class="text-end mt-3">
+                                <span class="badge bg-gradient-primary px-3 py-2">Cognitive Science</span>
+                                <span class="badge bg-gradient-primary px-3 py-2">Behavioral Psychology</span>
+                                <span class="badge bg-gradient-primary px-3 py-2">Human Factors</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h3 class="text-white fw-bold mb-4">Sangamesh Someshetty</h3>
+                    <p class="mb-4">Information Science Engineering Student passionate about technology, development, and innovation.</p>
+                    <div class="d-flex">
+                        <a href="https://github.com/sangameshsomeshetty" class="social-icon">
+                            <i class="bi bi-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/sangameshsomeshetty" class="social-icon">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="mailto:bremblue189@gmail.com" class="social-icon">
+                            <i class="bi bi-envelope"></i>
+                        </a>
+                        <a href="tel:+917483350353" class="social-icon">
+                            <i class="bi bi-phone"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-white fw-bold mb-4">Quick Links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#home" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#about" class="text-white text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="#education" class="text-white text-decoration-none">Education</a></li>
+                        <li class="mb-2"><a href="#projects" class="text-white text-decoration-none">Projects</a></li>
+                        <li><a href="#contact" class="text-white text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white fw-bold mb-4">Profiles</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Leetcode</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">HackerRank</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 Sangamesh Someshetty. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- TypedJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Back to top button
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
+                }
+            });
+            
+            // Typed.js initialization
+            var typed = new Typed('#typed-text', {
+                strings: ['Information Science Student', 'Web Developer', 'Problem Solver', 'Django Enthusiast'],
+                typeSpeed: 50,
+                backSpeed: 30,
+                backDelay: 1500,
+                startDelay: 500,
+                loop: true
+            });
+            
+            // Smooth scrolling for all anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                    // Close mobile menu when clicking a link
+                    const navbarCollapse = document.getElementById('navbarNav');
+                    if (navbarCollapse.classList.contains('show')) {
+                        navbarCollapse.classList.remove('show');
+                    }
+                });
+            });
+            
+            // Contact form submission (demo only)
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Message sent successfully! (This is a demo)');
+                    contactForm.reset();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
